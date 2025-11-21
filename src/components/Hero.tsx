@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { TrendingUp } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const Hero = () => {
   return (
@@ -24,9 +25,11 @@ export const Hero = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium">
-                Run 10-year demo
-              </Button>
+              <Link to="/demo">
+                <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium w-full sm:w-auto">
+                  Run 10-year demo
+                </Button>
+              </Link>
               <Button size="lg" variant="outline" className="border-border hover:bg-muted">
                 See the equations
               </Button>
