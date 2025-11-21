@@ -16,10 +16,10 @@ export const Footer = () => {
             <div>
               <h4 className="text-sm font-semibold mb-4 text-foreground">Navigation</h4>
               <nav className="flex flex-wrap gap-4 text-sm">
-                <a href="#equations" className="text-muted-foreground hover:text-primary transition-colors">
+                <a href="/equations" className="text-muted-foreground hover:text-primary transition-colors">
                   Equations
                 </a>
-                <a href="#demo" className="text-muted-foreground hover:text-primary transition-colors">
+                <a href="/demo" className="text-muted-foreground hover:text-primary transition-colors">
                   Demo
                 </a>
                 <a href="#weights" className="text-muted-foreground hover:text-primary transition-colors">
