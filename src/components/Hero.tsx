@@ -30,9 +30,11 @@ export const Hero = () => {
                   Run 10-year demo
                 </Button>
               </Link>
-              <Button size="lg" variant="outline" className="border-border hover:bg-muted">
-                See the equations
-              </Button>
+              <Link to="/equations">
+                <Button size="lg" variant="outline" className="border-border hover:bg-muted w-full sm:w-auto">
+                  See the equations
+                </Button>
+              </Link>
             </div>
           </div>
           
