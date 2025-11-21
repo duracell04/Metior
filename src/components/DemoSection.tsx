@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PlayCircle, BarChart3, Download } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const DemoSection = () => {
   const demos = [
@@ -41,9 +42,17 @@ export const DemoSection = () => {
                 <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-grow">
                   {demo.description}
                 </p>
-                <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
-                  {demo.buttonText}
-                </Button>
+                {index === 0 ? (
+                  <Link to="/demo">
+                    <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                      {demo.buttonText}
+                    </Button>
+                  </Link>
+                ) : (
+                  <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                    {demo.buttonText}
+                  </Button>
+                )}
               </Card>
             ))}
           </div>
