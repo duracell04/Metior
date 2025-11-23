@@ -1,7 +1,8 @@
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom";
 
 const Equations = () => {
   return (
@@ -9,7 +10,7 @@ const Equations = () => {
       {/* Header */}
       <header className="border-b border-border bg-card sticky top-0 z-10">
         <div className="container mx-auto px-4 py-4">
-          <Link to="/">
+          <Link href="/">
             <Button variant="ghost" size="sm" className="gap-2">
               <ArrowLeft className="h-4 w-4" />
               Back to Home
@@ -475,7 +476,7 @@ LIMIT 10;`}
 
           {/* Back button */}
           <div className="flex justify-center pt-8">
-            <Link to="/">
+            <Link href="/">
               <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 Back to Home
               </Button>

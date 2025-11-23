@@ -1,7 +1,10 @@
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+'use client';
+
+import Link from "next/link";
 import { TrendingUp } from "lucide-react";
-import { Link } from "react-router-dom";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 export const Hero = () => {
   return (
@@ -25,12 +28,12 @@ export const Hero = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/demo">
+              <Link href="/demo">
                 <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium w-full sm:w-auto">
                   Run 10-year demo
                 </Button>
               </Link>
-              <Link to="/equations">
+              <Link href="/equations">
                 <Button size="lg" variant="outline" className="border-border hover:bg-muted w-full sm:w-auto">
                   See the equations
                 </Button>

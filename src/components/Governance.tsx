@@ -1,3 +1,5 @@
+'use client';
+
 import { Card } from "@/components/ui/card";
 import { CheckCircle2 } from "lucide-react";
 

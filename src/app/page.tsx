@@ -8,7 +8,7 @@ import { Governance } from "@/components/Governance";
 import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
 
-const Index = () => {
+export default function HomePage() {
   return (
     <div className="min-h-screen">
       <Hero />
@@ -22,6 +22,4 @@ const Index = () => {
       <Footer />
     </div>
   );
-};
-
-export default Index;
+}
