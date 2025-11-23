@@ -1,6 +1,4 @@
 {
   "/page": "app/page.js",
-  "/demo/page": "app/demo/page.js",
-  "/weights/page": "app/weights/page.js",
   "/icon.svg/route": "app/icon.svg/route.js"
 }

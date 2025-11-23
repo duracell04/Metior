@@ -6,49 +6,26 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { buildMeoSnapshot } from "@/lib/meo-data";
 
 type WeightRow = {
   symbol: string;
-  weight: number;
-  mcUsd: string;
+  weight: number; // 0-1
+  mcUsd: number;
   category: string;
 };
 
-const snapshotDate = "2024-11-21";
+const categoryFor = (symbol: string) => {
+  if (["USD", "EUR", "JPY", "CHF", "CNY"].includes(symbol)) return "Fiat M2";
+  if (["XAU", "XAG"].includes(symbol)) return "Precious metal";
+  if (["BTC", "ETH"].includes(symbol)) return "Crypto (free-float)";
+  return "Other";
+};
 
-const weightSnapshot: WeightRow[] = [
-  { symbol: "CNY", weight: 39.2, mcUsd: "42.5T", category: "Fiat M2" },
-  { symbol: "XAU", weight: 20.4, mcUsd: "22.1T", category: "Precious metal" },
-  { symbol: "USD", weight: 19.8, mcUsd: "21.5T", category: "Fiat M2" },
-  { symbol: "EUR", weight: 15.5, mcUsd: "16.8T", category: "Fiat M2" },
-  { symbol: "BTC", weight: 2.1, mcUsd: "2.28T", category: "Crypto (free-float)" },
-  { symbol: "JPY", weight: 1.6, mcUsd: "1.73T", category: "Fiat M2" },
-  { symbol: "XAG", weight: 1.0, mcUsd: "1.08T", category: "Precious metal" },
-  { symbol: "ETH", weight: 0.4, mcUsd: "0.43T", category: "Crypto (free-float)" },
-];
+const formatCompact = (value: number) =>
+  Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: 1 }).format(value);
 
-const csvContent = [
-  ["date", "symbol", "weight", "mc_usd", "category"],
-  ...weightSnapshot.map(entry => [
-    snapshotDate,
-    entry.symbol,
-    (entry.weight / 100).toFixed(4),
-    entry.mcUsd.replace("T", "e12"),
-    entry.category,
-  ]),
-]
-  .map(row => row.join(","))
-  .join("\n");
-
-const csvDataUri = `data:text/csv;charset=utf-8,${encodeURIComponent(csvContent)}`;
-
-const sumWeight = weightSnapshot.reduce((sum, row) => sum + row.weight, 0);
-const fiatShare = weightSnapshot
-  .filter(row => row.category.toLowerCase().startsWith("fiat"))
-  .reduce((sum, row) => sum + row.weight, 0);
-const metalShare = weightSnapshot
-  .filter(row => row.category.includes("metal"))
-  .reduce((sum, row) => sum + row.weight, 0);
+const formatWeightPct = (w: number) => `${(w * 100).toFixed(1)}%`;
 
 const auditChecks = [
   { label: "Weights sum to 1", detail: "abs(sum(weights)-1) < 1e-9" },
@@ -59,15 +36,76 @@ const auditChecks = [
 
 const workflow = [
   "Pull caps from FRED (M2), LBMA (XAU/XAG), CoinGecko (BTC/ETH), FX (USD/EUR/JPY/CHF).",
-  "Forward-fill up to 60d; if still stale, zero the weight for that component.",
+  "Skip stale components and renormalize the live basket automatically.",
   "Compute M_world = sum_j MC_j^USD; set P_USD^MEIc = kappa * M_world (kappa=1e-6).",
   "Normalize weights w_j = MC_j / M_world; log (date, symbol, weight, mc_usd, m_world_usd).",
   "Publish weights_{date}.csv + /meo/weights?date=YYYY-MM-DD for reproducibility.",
 ];
 
-const formatWeight = (weight: number) => `${weight.toFixed(1)}%`;
+async function getWeights(): Promise<{
+  date: string;
+  weights: WeightRow[];
+  mWorldUsd: number;
+  meoUsd: number;
+}> {
+  try {
+    const live = await buildMeoSnapshot();
+    return {
+      date: live.date,
+      meoUsd: live.meo_usd,
+      mWorldUsd: live.m_world_usd,
+      weights: live.weights.map(entry => ({
+        symbol: entry.symbol,
+        weight: entry.weight,
+        mcUsd: entry.mc_usd,
+        category: categoryFor(entry.symbol),
+      })),
+    };
+  } catch (error) {
+    console.error("weights page falling back to static snapshot", error);
+    const fallback: WeightRow[] = [
+      { symbol: "CNY", weight: 0.392, mcUsd: 42.5e12, category: "Fiat M2" },
+      { symbol: "XAU", weight: 0.204, mcUsd: 22.1e12, category: "Precious metal" },
+      { symbol: "USD", weight: 0.198, mcUsd: 21.5e12, category: "Fiat M2" },
+      { symbol: "EUR", weight: 0.155, mcUsd: 16.8e12, category: "Fiat M2" },
+      { symbol: "BTC", weight: 0.021, mcUsd: 2.28e12, category: "Crypto (free-float)" },
+      { symbol: "JPY", weight: 0.016, mcUsd: 1.73e12, category: "Fiat M2" },
+      { symbol: "XAG", weight: 0.01, mcUsd: 1.08e12, category: "Precious metal" },
+      { symbol: "ETH", weight: 0.004, mcUsd: 0.43e12, category: "Crypto (free-float)" },
+    ];
+    return {
+      date: "2024-11-21",
+      meoUsd: 0.000001 * fallback.reduce((sum, r) => sum + r.mcUsd, 0),
+      mWorldUsd: fallback.reduce((sum, r) => sum + r.mcUsd, 0),
+      weights: fallback,
+    };
+  }
+}
 
-export default function WeightsPage() {
+export default async function WeightsPage() {
+  const snapshot = await getWeights();
+  const sumWeight = snapshot.weights.reduce((sum, row) => sum + row.weight, 0);
+  const fiatShare = snapshot.weights
+    .filter(row => row.category.toLowerCase().startsWith("fiat"))
+    .reduce((sum, row) => sum + row.weight, 0);
+  const metalShare = snapshot.weights
+    .filter(row => row.category.includes("metal"))
+    .reduce((sum, row) => sum + row.weight, 0);
+
+  const csvContent = [
+    ["date", "symbol", "weight", "mc_usd", "category"],
+    ...snapshot.weights.map(entry => [
+      snapshot.date,
+      entry.symbol,
+      entry.weight.toFixed(6),
+      entry.mcUsd,
+      entry.category,
+    ]),
+  ]
+    .map(row => row.join(","))
+    .join("\n");
+  const csvDataUri = `data:text/csv;charset=utf-8,${encodeURIComponent(csvContent)}`;
+
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b border-border bg-card sticky top-0 z-10">
@@ -94,7 +132,7 @@ export default function WeightsPage() {
           <section className="space-y-6">
             <div className="flex items-center gap-3">
               <Badge variant="outline" className="font-mono text-xs">MEIc weights</Badge>
-              <Badge variant="secondary" className="font-mono text-xs">As of {snapshotDate}</Badge>
+              <Badge variant="secondary" className="font-mono text-xs">As of {snapshot.date}</Badge>
             </div>
             <h1 className="text-4xl font-bold tracking-tight">Daily MEIc basket weights</h1>
             <p className="text-lg text-muted-foreground max-w-3xl">
@@ -123,22 +161,22 @@ export default function WeightsPage() {
                 <h2 className="text-2xl font-semibold">Current snapshot</h2>
                 <p className="text-sm text-muted-foreground">Market-cap weighted; normalized to 1.000</p>
               </div>
-              <div className="flex gap-4 text-sm">
-                <div>
-                  <p className="text-muted-foreground">Fiat share</p>
-                  <p className="font-semibold text-foreground">{formatWeight(fiatShare)}</p>
+                <div className="flex gap-4 text-sm">
+                  <div>
+                    <p className="text-muted-foreground">Fiat share</p>
+                    <p className="font-semibold text-foreground">{formatWeightPct(fiatShare)}</p>
+                  </div>
+                  <Separator orientation="vertical" className="h-10" />
+                  <div>
+                    <p className="text-muted-foreground">Metals</p>
+                    <p className="font-semibold text-foreground">{formatWeightPct(metalShare)}</p>
+                  </div>
+                  <Separator orientation="vertical" className="h-10" />
+                  <div>
+                    <p className="text-muted-foreground">Total</p>
+                    <p className="font-semibold text-foreground">{formatWeightPct(sumWeight)}</p>
+                  </div>
                 </div>
-                <Separator orientation="vertical" className="h-10" />
-                <div>
-                  <p className="text-muted-foreground">Metals</p>
-                  <p className="font-semibold text-foreground">{formatWeight(metalShare)}</p>
-                </div>
-                <Separator orientation="vertical" className="h-10" />
-                <div>
-                  <p className="text-muted-foreground">Total</p>
-                  <p className="font-semibold text-foreground">{sumWeight.toFixed(1)}%</p>
-                </div>
-              </div>
             </div>
 
             <div className="overflow-x-auto">
@@ -152,12 +190,14 @@ export default function WeightsPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {weightSnapshot.map(entry => (
+                  {snapshot.weights.map(entry => (
                     <TableRow key={entry.symbol}>
                       <TableCell className="font-mono text-xs text-foreground">{entry.symbol}</TableCell>
                       <TableCell className="text-sm text-muted-foreground">{entry.category}</TableCell>
-                      <TableCell className="text-right font-semibold">{formatWeight(entry.weight)}</TableCell>
-                      <TableCell className="text-right font-mono text-xs text-muted-foreground">{entry.mcUsd}</TableCell>
+                      <TableCell className="text-right font-semibold">{formatWeightPct(entry.weight)}</TableCell>
+                      <TableCell className="text-right font-mono text-xs text-muted-foreground">
+                        {formatCompact(entry.mcUsd)}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
