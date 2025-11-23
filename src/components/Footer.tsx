@@ -24,7 +24,7 @@ export const Footer = () => {
                 <a href="/demo" className="text-muted-foreground hover:text-primary transition-colors">
                   Demo
                 </a>
-                <a href="#weights" className="text-muted-foreground hover:text-primary transition-colors">
+                <a href="/weights" className="text-muted-foreground hover:text-primary transition-colors">
                   Weights
                 </a>
                 <a href="#github" className="text-muted-foreground hover:text-primary transition-colors">
