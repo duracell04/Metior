@@ -22,12 +22,33 @@ const SILVER_STOCK_OZ = 1_600_000 * 32_150.7;
 
 const fredBase = "https://api.stlouisfed.org/fred/series/observations";
 const fredKey = process.env.FRED_API_KEY || "";
+const isValidFredKey = (key: string | undefined | null): key is string =>
+  typeof key === "string" && /^[a-z0-9]{32}$/.test(key);
+let warnedFredKey = false;
 
 type FredResponse = { observations?: { value: string }[] };
 
 const lastFredValue = async (series: string) => {
+  // If the key is missing/invalid, skip FRED entirely to avoid 400s.
+  if (!isValidFredKey(fredKey)) {
+    if (!warnedFredKey) {
+      console.warn("[FRED] FRED_API_KEY missing/invalid — skipping FRED calls (rate-limited demo only).");
+      warnedFredKey = true;
+    }
+    return null;
+  }
+
+  const params: Record<string, string | number | undefined> = {
+    series_id: series,
+    sort_order: "desc",
+    limit: 1,
+    file_type: "json",
+  };
+
+  params.api_key = fredKey;
+
   const data = await fetchJson<FredResponse>(fredBase, {
-    params: { series_id: series, api_key: fredKey, sort_order: "desc", limit: 1, file_type: "json" },
+    params,
     cacheKey: `fred:${series}`,
     ttlMs: 1000 * 60 * 60 * 12,
   });

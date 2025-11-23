@@ -36,8 +36,9 @@ export async function fetchJson<T>(
   for (let attempt = 0; attempt <= retries; attempt += 1) {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeoutMs);
+    const fullUrl = url + search;
     try {
-      const res = await fetch(url + search, {
+      const res = await fetch(fullUrl, {
         signal: controller.signal,
         headers: { "User-Agent": "Metior/1.0 (+metior.app)" },
         cache: "no-store",
@@ -48,6 +49,14 @@ export async function fetchJson<T>(
         cache.set(key, { value: data, expires: now + ttlMs });
         clearTimeout(timer);
         return data;
+      }
+
+      if (res.status === 400) {
+        const body = await res.text().catch(() => "");
+        const hint = fullUrl.includes("api_key=")
+          ? "FRED_API_KEY looks invalid. Expect 32 lower-case a-z0-9. Remove the param or set a valid key."
+          : "";
+        throw new Error(`fetch failed 400${body ? `: ${body}` : ""}${hint ? ` — ${hint}` : ""}`);
       }
 
       if (!RETRY_STATUS.has(res.status) || attempt === retries) {
