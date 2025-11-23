@@ -55,7 +55,7 @@ export const DemoSection = () => {
     {
       icon: PlayCircle,
       title: "Run 10-year backtest",
-      description: "Weekly policy. Median-Iλ gate. Cost cap 35 bp. GINI™ shown by default.",
+      description: "Weekly policy. Median-II gate. Cost cap 35 bp. GINI™ shown by default.",
       buttonText: "Run Demo",
       action: "link" as const,
       href: "/demo",
