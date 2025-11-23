@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Metior monogram">
+  <defs>
+    <linearGradient id="shimmer" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d6c7a4" />
+      <stop offset="1" stop-color="#b89e6b" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#090f1b" stroke="#b89e6b" stroke-width="2" />
+  <path fill="url(#shimmer)" d="M18 46V18h8l6 10 6-10h8v28h-8V30l-6 8-6-8v16z" />
+</svg>
