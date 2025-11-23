@@ -64,7 +64,7 @@ r_{i,MEΩ}(t) = Δln( P_i^USD(t) / P_USD^{MEΩ}(t) )`}
               </div>
               <p className="text-xs text-muted-foreground">
                 Interpretation: one MEΩ is the millionth of the world money aggregate. If M_world = 174T USD, then
-                P_USD^{MEΩ} ≈ 174M USD.
+                P_USD<sup>MEΩ</sup> ≈ 174M USD.
               </p>
             </div>
           </Card>
@@ -106,7 +106,7 @@ r_{i,MEΩ}(t) = Δln( P_i^USD(t) / P_USD^{MEΩ}(t) )`}
             <h3 className="text-lg font-semibold">5) Data → Model → Publish</h3>
             <ol className="list-decimal list-inside text-sm text-muted-foreground space-y-2">
               <li>Ingest: open feeds; forward-fill ≤ 60d; drop if stale.</li>
-              <li>Compute: caps, weights, P^{MEΩ}, returns in MEΩ; risk metrics.</li>
+              <li>Compute: caps, weights, P<sup>MEΩ</sup>, returns in MEΩ; risk metrics.</li>
               <li>Publish: weights.csv, meo_price.csv, summary.json; API: /meo/latest, /meo/weights?date=…, /meo/returns?symbol=…; docs + audit SQL.</li>
             </ol>
           </Card>
@@ -153,7 +153,7 @@ LIMIT 10;`}
           <Card className="p-6 bg-card border-border space-y-4">
             <h3 className="text-lg font-semibold">8) Risk & performance in MEΩ</h3>
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-2">
-              <li>Volatility: realised σ on r_{i,MEΩ}; optional GARCH(1,1).</li>
+              <li>Volatility: realised σ on r<sub>i,MEΩ</sub>; optional GARCH(1,1).</li>
               <li>Tail risk: EVT (POT–GPD) for VaR/CVaR in MEΩ units.</li>
               <li>GINα: removes global funding & inflation in MEΩ units to isolate skill.</li>
             </ul>
@@ -163,7 +163,7 @@ LIMIT 10;`}
             <h3 className="text-lg font-semibold">9) Design choices (FAQ-lite)</h3>
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-2">
               <li>SDR is fiat-only; CPI is a consumption basket. MEΩ is money-native and adaptive.</li>
-              <li>κ = 10^{-6} gives a human-readable price (≈ $100M/MEΩ today) and fixed token supply if ever tokenized.</li>
+              <li>κ = 10<sup>-6</sup> gives a human-readable price (≈ $100M/MEΩ today) and fixed token supply if ever tokenized.</li>
               <li>MEΩ is a yard-stick, not a stablecoin; price floats with the world money pool.</li>
               <li>Hedge via components; phase 2: ETN/futures for direct hedging.</li>
             </ul>
@@ -173,7 +173,7 @@ LIMIT 10;`}
             <h3 className="text-lg font-semibold">10) Validation & acceptance</h3>
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-2">
               <li>Stability KPIs: MEΩ vs USD/EUR/CHF volatility; drawdowns (2008/2020/2022); weight entropy.</li>
-              <li>Trust gates: Σw ≈ 1; P^{MEΩ} = κ ΣMC within 1 bp; no NaNs; bit-for-bit rebuild.</li>
+              <li>Trust gates: Σw ≈ 1; P<sup>MEΩ</sup> = κ ΣMC within 1 bp; no NaNs; bit-for-bit rebuild.</li>
               <li>Adoption KPIs: API calls/day; CSV downloads; references to MEΩ / GINα.</li>
             </ul>
           </Card>
