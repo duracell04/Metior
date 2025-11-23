@@ -13,38 +13,36 @@ export const Hero = () => {
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
           <div className="space-y-8">
             <Badge variant="outline" className="border-primary/20 bg-primary/5 text-primary font-mono text-xs">
-              Powered by Mêtior (MEΩ)
+              Mêtior · MEΩ
             </Badge>
-            
+
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-              Open math.{" "}
-              <span className="text-gradient-auric">Deterministic capital.</span>{" "}
-              Allocate in MEΩ.
+              The universal numéraire for <span className="text-gradient-auric">money itself.</span>
             </h1>
-            
+
             <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
-              Mêtior (MEΩ) is a universal numéraire: a capitalization-weighted basket of fiat M2, gold/silver, and crypto. 
-              It makes performance currency-neutral and inflation-aware.
+              A capitalization-weighted yard-stick of fiat M2, metals, and free-float crypto—open math, daily weights,
+              no currency fog. Price everything in MEΩ to see economic truth.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/demo">
+              <Link href="#spec">
                 <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium w-full sm:w-auto">
-                  Run 10-year demo
+                  Read the spec
                 </Button>
               </Link>
-              <Link href="/equations">
+              <Link href="#quickstart">
                 <Button size="lg" variant="outline" className="border-border hover:bg-muted w-full sm:w-auto">
-                  See the equations
+                  Compute MEΩ locally
                 </Button>
               </Link>
             </div>
           </div>
-          
+
           <div className="relative">
             <div className="rounded-lg border border-border bg-card p-6 shadow-lg">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm font-medium text-muted-foreground">MEΩ vs Major Currencies (1970-2024)</h3>
+                <h3 className="text-sm font-medium text-muted-foreground">MEΩ vs major currencies (1970-2024)</h3>
                 <TrendingUp className="h-4 w-4 text-graph" />
               </div>
               <div className="aspect-video bg-muted/30 rounded border border-border/50 flex items-center justify-center">
@@ -72,7 +70,7 @@ export const Hero = () => {
                 </div>
               </div>
               <p className="text-xs text-muted-foreground mt-4 text-center">
-                Chart illustrates MEΩ stability vs fiat purchasing power erosion
+                Chart placeholder: MEΩ stability vs fiat purchasing power erosion
               </p>
             </div>
           </div>
