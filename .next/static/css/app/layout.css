@@ -1023,6 +1023,9 @@ video {
 .w-px {
   width: 1px;
 }
+.w-\[28rem\] {
+  width: 28rem;
+}
 .min-w-0 {
   min-width: 0px;
 }
@@ -1068,6 +1071,9 @@ video {
 }
 .max-w-xl {
   max-width: 36rem;
+}
+.max-w-\[90vw\] {
+  max-width: 90vw;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -1315,6 +1321,9 @@ video {
 .whitespace-nowrap {
   white-space: nowrap;
 }
+.whitespace-pre-wrap {
+  white-space: pre-wrap;
+}
 .break-words {
   overflow-wrap: break-word;
 }
@@ -1416,6 +1425,14 @@ video {
 .border-transparent {
   border-color: transparent;
 }
+.border-neutral-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(229 229 229 / var(--tw-border-opacity, 1));
+}
+.border-neutral-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(212 212 212 / var(--tw-border-opacity, 1));
+}
 .border-l-transparent {
   border-left-color: transparent;
 }
@@ -1487,6 +1504,14 @@ video {
 }
 .bg-transparent {
   background-color: transparent;
+}
+.bg-neutral-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(250 250 250 / var(--tw-bg-opacity, 1));
+}
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 .bg-gradient-to-br {
   background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
@@ -1686,6 +1711,9 @@ video {
   font-size: 0.75rem;
   line-height: 1rem;
 }
+.text-\[12px\] {
+  font-size: 12px;
+}
 .font-bold {
   font-weight: 700;
 }
@@ -1710,6 +1738,9 @@ video {
 }
 .leading-relaxed {
   line-height: 1.625;
+}
+.leading-5 {
+  line-height: 1.25rem;
 }
 .tracking-tight {
   letter-spacing: -0.025em;
@@ -1767,6 +1798,18 @@ video {
 }
 .text-signal {
   color: hsl(var(--signal));
+}
+.text-neutral-600 {
+  --tw-text-opacity: 1;
+  color: rgb(82 82 82 / var(--tw-text-opacity, 1));
+}
+.text-neutral-700 {
+  --tw-text-opacity: 1;
+  color: rgb(64 64 64 / var(--tw-text-opacity, 1));
+}
+.text-neutral-800 {
+  --tw-text-opacity: 1;
+  color: rgb(38 38 38 / var(--tw-text-opacity, 1));
 }
 .underline {
   text-decoration-line: underline;
@@ -1841,6 +1884,10 @@ video {
 }
 .ring-offset-background {
   --tw-ring-offset-color: hsl(var(--background));
+}
+.invert {
+  --tw-invert: invert(100%);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
@@ -2093,6 +2140,11 @@ All colors MUST be HSL.
 
 .hover\:bg-secondary\/80:hover {
   background-color: hsl(var(--secondary) / 0.8);
+}
+
+.hover\:bg-neutral-50:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(250 250 250 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:text-accent-foreground:hover {

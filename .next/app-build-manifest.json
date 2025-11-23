@@ -16,10 +16,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
     ],
-    "/equations/page": [
+    "/weights/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/equations/page.js"
+      "static/chunks/app/weights/page.js"
     ],
     "/demo/page": [
       "static/chunks/webpack.js",
@@ -27,10 +27,10 @@
       "static/css/app/demo/page.css",
       "static/chunks/app/demo/page.js"
     ],
-    "/weights/page": [
+    "/equations/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/weights/page.js"
+      "static/chunks/app/equations/page.js"
     ]
   }
 }
