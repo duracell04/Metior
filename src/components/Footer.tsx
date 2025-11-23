@@ -27,7 +27,12 @@ export const Footer = () => {
                 <a href="/weights" className="text-muted-foreground hover:text-primary transition-colors">
                   Weights
                 </a>
-                <a href="#github" className="text-muted-foreground hover:text-primary transition-colors">
+                <a
+                  href="https://github.com/duracell04/Metior"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
                   GitHub
                 </a>
               </nav>
@@ -40,8 +45,23 @@ export const Footer = () => {
             <p>
               <strong className="text-foreground">Disclaimer:</strong> Prototype math; educational content; no investment advice.
             </p>
-            <p>
-              <strong className="text-foreground">Sources:</strong> FRED, LBMA, CoinGecko, Yahoo Finance
+            <p className="flex flex-wrap items-center gap-2">
+              <strong className="text-foreground">Sources:</strong>
+              <a href="https://fred.stlouisfed.org/" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">
+                FRED
+              </a>
+              <span aria-hidden="true">•</span>
+              <a href="https://www.lbma.org.uk/prices-and-data" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">
+                LBMA
+              </a>
+              <span aria-hidden="true">•</span>
+              <a href="https://www.coingecko.com/" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">
+                CoinGecko
+              </a>
+              <span aria-hidden="true">•</span>
+              <a href="https://finance.yahoo.com/" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">
+                Yahoo Finance
+              </a>
             </p>
           </div>
           
