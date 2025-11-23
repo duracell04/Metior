@@ -22,7 +22,7 @@ export const Manifesto = () => {
             <h3 className="text-lg font-semibold">0) Elevator pitch</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
               MEΩ is a capitalization-weighted numéraire that aggregates fiat M2, gold/silver, and leading crypto
-              (BTC/ETH) into one living yard-stick. Price anything in MEΩ to see economic truth without USD/CHF drift.
+              (BTC/ETH) into one living yard-stick. Price anything in MEΩ to see economic truth without fiat money FX drift.
             </p>
             <blockquote className="border-l-2 border-primary pl-4 text-sm text-foreground">
               Why care? Reporting in USD/CHF/EUR bakes FX and inflation into your “alpha.” MEΩ strips that out.
@@ -37,7 +37,7 @@ export const Manifesto = () => {
                 <ul className="list-disc list-inside text-muted-foreground space-y-1">
                   <li>A numéraire (unit of account), not a fund or index product.</li>
                   <li>A basket-of-money built from public data, reweighted automatically.</li>
-                  <li>A reference unit to price anything without USD/CHF drift.</li>
+                  <li>A reference unit to price anything without fiat money FX drift.</li>
                 </ul>
               </div>
               <div className="space-y-2">

@@ -11,7 +11,7 @@ const Equations = () => {
       <header className="border-b border-border bg-card sticky top-0 z-10">
         <div className="container mx-auto px-4 py-4">
           <Link href="/">
-            <Button variant="ghost" size="sm" className="gap-2">
+            <Button size="sm" className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm">
               <ArrowLeft className="h-4 w-4" />
               Back to Home
             </Button>
@@ -474,14 +474,6 @@ LIMIT 10;`}
             </Card>
           </section>
 
-          {/* Back button */}
-          <div className="flex justify-center pt-8">
-            <Link href="/">
-              <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                Back to Home
-              </Button>
-            </Link>
-          </div>
         </div>
       </div>
     </div>

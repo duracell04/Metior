@@ -1,5 +1,3 @@
-'use client';
-
 import { Separator } from "@/components/ui/separator";
 
 export const Footer = () => {
@@ -14,7 +12,7 @@ export const Footer = () => {
                 A universal numéraire built on open math. Deterministic, transparent, and currency-neutral.
               </p>
             </div>
-            
+
             <div>
               <h4 className="text-sm font-semibold mb-4 text-foreground">Navigation</h4>
               <nav className="flex flex-wrap gap-4 text-sm">
@@ -38,12 +36,13 @@ export const Footer = () => {
               </nav>
             </div>
           </div>
-          
+
           <Separator className="my-8" />
-          
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
+
+          <div className="space-y-4 text-sm text-muted-foreground">
             <p>
-              <strong className="text-foreground">Disclaimer:</strong> Prototype math; educational content; no investment advice.
+              <strong className="text-foreground">Disclaimer:</strong> Prototype math; educational content; no investment
+              advice.
             </p>
             <p className="flex flex-wrap items-center gap-2">
               <strong className="text-foreground">Sources:</strong>
@@ -63,9 +62,6 @@ export const Footer = () => {
                 Yahoo Finance
               </a>
             </p>
-          </div>
-          
-          <div className="mt-6 text-center text-sm text-muted-foreground">
             <p>Open license: Brand tokens & badges MIT</p>
           </div>
         </div>

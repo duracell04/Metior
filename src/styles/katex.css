@@ -1,0 +1,16 @@
+.katex-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.125rem;
+}
+
+.katex-display {
+  display: block;
+  margin: 0.25rem 0;
+}
+
+.katex-html {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.95em;
+  line-height: 1.4;
+}
