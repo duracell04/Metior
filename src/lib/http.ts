@@ -4,8 +4,12 @@ const RETRY_STATUS = new Set([429, 500, 502, 503, 504]);
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
+export const isOffline = (): boolean =>
+  process.env.MEO_OFFLINE === "ng" || process.env.MEO_OFFLINE === "1" || Boolean(process.env.MEO_FREEZE_DATE);
+
 /**
- * Fetch JSON with retry, backoff, timeout, and a simple in-memory TTL cache.
+ * Single-source JSON fetch utility.
+ * In offline mode, either throws (hard) or returns empty stub (soft).
  */
 export async function fetchJson<T>(
   url: string,
@@ -15,16 +19,19 @@ export async function fetchJson<T>(
     ttlMs = 1000 * 60 * 60 * 12, // 12 hours
     timeoutMs = 10_000,
     retries = 3,
+    soft = false,
   }: {
     params?: Record<string, string | number | undefined>;
     cacheKey?: string;
     ttlMs?: number;
     timeoutMs?: number;
     retries?: number;
+    soft?: boolean;
   } = {}
 ): Promise<T> {
-  if (process.env.MEO_FREEZE_DATE || process.env.MEO_OFFLINE === "1") {
-    throw new Error("offline demo: network disabled");
+  if (isOffline()) {
+    if (soft) return {} as T;
+    throw new Error("offline demo: network disabled (fetchJson called)");
   }
 
   const key = cacheKey || `${url}?${params ? new URLSearchParams(params as Record<string, string>).toString() : ""}`;
@@ -56,7 +63,7 @@ export async function fetchJson<T>(
       }
 
       if (res.status === 400) {
-        const body = await res.text().catch(() => "");
+        const body = await safeText(res);
         const hint = fullUrl.includes("api_key=")
           ? "FRED_API_KEY looks invalid. Expect 32 lower-case a-z0-9. Remove the param or set a valid key."
           : "";
@@ -64,7 +71,7 @@ export async function fetchJson<T>(
       }
 
       if (!RETRY_STATUS.has(res.status) || attempt === retries) {
-        const body = await res.text().catch(() => "");
+        const body = await safeText(res);
         throw new Error(`fetch failed ${res.status}${body ? `: ${body}` : ""}`);
       }
     } catch (err) {
@@ -80,4 +87,12 @@ export async function fetchJson<T>(
   }
 
   throw lastError instanceof Error ? lastError : new Error("fetch failed");
+}
+
+async function safeText(res: Response) {
+  try {
+    return await res.text();
+  } catch {
+    return "<no body>";
+  }
 }
