@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, Download, ShieldCheck, Sigma, RefreshCw } from "lucide-react";
+import { Download, ShieldCheck, Sigma, RefreshCw } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -122,18 +122,6 @@ export default async function WeightsPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b border-border bg-card sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/">
-            <Button size="sm" className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm">
-              <ArrowLeft className="h-4 w-4" />
-              Back to Home
-            </Button>
-          </Link>
-          <div />
-        </div>
-      </header>
-
       <main className="container mx-auto px-4 py-12 max-w-5xl">
         <div className="space-y-12">
           <section className="space-y-6">

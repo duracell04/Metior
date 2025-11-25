@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import { ArrowLeft, Download, Play, RotateCw } from "lucide-react";
+import { Download, Play, RotateCw } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 import { MathBlock, MathInline } from "@/components/Math";
@@ -254,22 +253,6 @@ export default function DemoPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b border-border bg-card">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/">
-              <Button size="sm" className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm">
-                <ArrowLeft className="h-4 w-4" />
-                Back to Home
-              </Button>
-            </Link>
-            <Badge variant="outline" className="border-primary/20 bg-primary/5 text-primary font-mono">
-              MEΩ Backtest Simulator
-            </Badge>
-          </div>
-        </div>
-      </header>
-
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-6xl mx-auto space-y-10">
           <div className="text-center space-y-3">

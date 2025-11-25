@@ -1,24 +1,8 @@
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
 const Equations = () => {
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-card sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-4">
-          <Link href="/">
-            <Button size="sm" className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm">
-              <ArrowLeft className="h-4 w-4" />
-              Back to Home
-            </Button>
-          </Link>
-        </div>
-      </header>
-
       <div className="container mx-auto px-4 py-12 max-w-4xl">
         <div className="space-y-12">
           {/* Title */}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Providers } from "./providers";
 import "./globals.css";
 import { Footer } from "@/components/Footer";
+import { Header } from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "Metior",
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Providers>
           <div className="min-h-screen flex flex-col">
+            <Header />
             <div className="flex-1">{children}</div>
             <Footer />
           </div>

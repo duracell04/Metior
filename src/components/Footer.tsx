@@ -1,4 +1,7 @@
+import Link from "next/link";
+
 import { Separator } from "@/components/ui/separator";
+import { navLinks } from "@/lib/navigation";
 
 export const Footer = () => {
   return (
@@ -16,23 +19,23 @@ export const Footer = () => {
             <div>
               <h4 className="text-sm font-semibold mb-4 text-foreground">Navigation</h4>
               <nav className="flex flex-wrap gap-4 text-sm">
-                <a href="/equations" className="text-muted-foreground hover:text-primary transition-colors">
-                  Equations
-                </a>
-                <a href="/demo" className="text-muted-foreground hover:text-primary transition-colors">
-                  Demo
-                </a>
-                <a href="/weights" className="text-muted-foreground hover:text-primary transition-colors">
-                  Weights
-                </a>
-                <a
-                  href="https://github.com/duracell04/Metior"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  GitHub
-                </a>
+                {navLinks.map(link =>
+                  link.external ? (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link key={link.href} href={link.href} className="text-muted-foreground hover:text-primary transition-colors">
+                      {link.label}
+                    </Link>
+                  ),
+                )}
               </nav>
             </div>
           </div>
