@@ -450,7 +450,8 @@ export default function DemoPage() {
               <h3 className="text-sm font-semibold mb-1 text-primary">Methodology (precise but readable)</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Demo uses synthetic but structured signals so graphs respond to the controls while preserving realistic
-                cost/vol behavior. In production, plug in your live signals or policy.
+                cost/vol behavior. In offline mode (MEO_OFFLINE=1) the weighting snapshot is pinned to 2025-10-08 from the bundled CSV/JSON;
+                no live feeds are queried here.
               </p>
             </div>
             <div className="grid md:grid-cols-2 gap-4">

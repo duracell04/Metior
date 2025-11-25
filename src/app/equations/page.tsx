@@ -14,6 +14,25 @@ const Equations = () => {
             </p>
           </div>
 
+
+          <Card className="p-6 bg-muted/30 border-border space-y-2">
+            <h3 className="text-lg font-semibold">Offline demo context</h3>
+            <p className="text-sm text-muted-foreground">
+              This page is frozen to the bundled snapshot dated 2025-10-08. No live calls run in demo mode; all caps and weights below come
+              from the checked-in JSON/CSV (M_world = 108.4T USD, kappa = 1e-6, P_USD^MEIc = 108.4M USD).
+            </p>
+            <ul className="grid sm:grid-cols-2 gap-2 text-sm font-mono bg-muted/50 p-3 rounded border border-dashed border-border">
+              <li>CNY 42.4928T (39.2%)</li>
+              <li>XAU 22.1136T (20.4%)</li>
+              <li>USD 21.4632T (19.8%)</li>
+              <li>EUR 16.8020T (15.5%)</li>
+              <li>BTC 2.2764T (2.1%)</li>
+              <li>JPY 1.7344T (1.6%)</li>
+              <li>XAG 1.0840T (1.0%)</li>
+              <li>ETH 0.4336T (0.4%)</li>
+            </ul>
+          </Card>
+
           {/* 1. Notation */}
           <section className="space-y-4">
             <h2 className="text-2xl font-bold text-primary">1) Notation</h2>
@@ -351,15 +370,18 @@ LIMIT 10;`}
               <h3 className="text-lg font-semibold mb-3">Example API payload</h3>
               <pre className="font-mono text-xs bg-muted/50 p-4 rounded border border-border overflow-x-auto">
 {`{
-  "date": "2025-11-21",
-  "meo_usd": 125600000,
-  "m_world_usd": 125600000000000,
+  "date": "2025-10-08",
+  "meo_usd": 108400000,
+  "m_world_usd": 108400000000000,
   "weights": [
-    {"symbol": "CNY", "w": 0.392},
-    {"symbol": "XAU", "w": 0.204},
-    {"symbol": "USD", "w": 0.198},
-    {"symbol": "EUR", "w": 0.155},
-    {"symbol": "BTC", "w": 0.021}
+    {"symbol": "CNY", "w": 0.392, "mc_usd": 42492800000000},
+    {"symbol": "XAU", "w": 0.204, "mc_usd": 22113600000000},
+    {"symbol": "USD", "w": 0.198, "mc_usd": 21463200000000},
+    {"symbol": "EUR", "w": 0.155, "mc_usd": 16802000000000},
+    {"symbol": "BTC", "w": 0.021, "mc_usd": 2276400000000},
+    {"symbol": "JPY", "w": 0.016, "mc_usd": 1734400000000},
+    {"symbol": "XAG", "w": 0.01, "mc_usd": 1084000000000},
+    {"symbol": "ETH", "w": 0.004, "mc_usd": 433600000000}
   ]
 }`}
               </pre>
