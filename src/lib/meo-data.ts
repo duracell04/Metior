@@ -40,6 +40,8 @@ const buildSnapshotFromRows = (date: string, rows: SnapshotRow[]): Snapshot => {
 const STATIC_SNAPSHOT = buildSnapshotFromRows(DEFAULT_STATIC_DATE, STATIC_SNAPSHOTS[DEFAULT_STATIC_DATE]);
 
 export async function buildMeoSnapshot() {
-  console.info(`[MEO] using static MEIc snapshot for ${DEFAULT_STATIC_DATE} (demo mode, no external calls)`);
+  console.info(`[MEΩ] offline snapshot: ${DEFAULT_STATIC_DATE}`);
   return STATIC_SNAPSHOT;
 }
+
+export const STATIC_MEO_SNAPSHOT = STATIC_SNAPSHOT;

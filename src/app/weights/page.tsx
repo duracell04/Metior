@@ -95,6 +95,15 @@ export default async function WeightsPage() {
   const metalShare = snapshot.weights
     .filter(row => row.category.includes("metal"))
     .reduce((sum, row) => sum + row.weight, 0);
+  const cryptoShare = snapshot.weights
+    .filter(row => row.category.startsWith("Crypto"))
+    .reduce((sum, row) => sum + row.weight, 0);
+  const topConstituent = [...snapshot.weights].sort((a, b) => b.weight - a.weight)[0];
+  const oneDollarRows = snapshot.weights.map(entry => ({
+    symbol: entry.symbol,
+    category: entry.category,
+    weight: entry.weight,
+  }));
 
   const csvContent = [
     ["date", "symbol", "weight", "mc_usd", "category"],
@@ -162,7 +171,7 @@ export default async function WeightsPage() {
               <div>
                 <h2 className="text-2xl font-semibold">Current snapshot</h2>
                 <div className="flex items-center gap-2">
-                  <div className="text-sm text-muted-foreground">Current snapshot · Market-cap weighted; normalized to 1.000</div>
+                  <div className="text-sm text-muted-foreground">Offline snapshot. Market-cap weighted; normalized to 1.000.</div>
                   <details className="relative group">
                     <summary
                       className="inline-flex h-5 w-5 items-center justify-center rounded border border-neutral-300 bg-white text-neutral-700 hover:bg-neutral-50 cursor-pointer"
@@ -174,24 +183,28 @@ export default async function WeightsPage() {
                     </summary>
                     <div className="absolute z-50 mt-2 w-[28rem] max-w-[90vw] rounded-md border border-neutral-200 bg-white p-4 shadow-lg text-sm text-neutral-800">
                       <div className="font-semibold mb-1">About this snapshot</div>
-                      <div className="text-neutral-600 mb-2">As of 2025-10-08 (offline), market-cap weighted, normalized to 1.000.</div>
+                      <div className="text-neutral-600 mb-2">
+                        As of {snapshot.date} (offline), market-cap weighted, normalized to 1.000.
+                      </div>
                       <ul className="space-y-1">
                         <li>
                           <strong>κ (kappa)</strong> = 1e-6
                         </li>
                         <li>
-                          <strong>M_world</strong> = 108.4 T USD · <strong>{"P_USD^{MEΩ}"}</strong> = 108.4 M USD
+                          <strong>M_world</strong> = {formatCompact(snapshot.mWorldUsd)} USD · <strong>{"P_USD^{MEIc}"}</strong> ={" "}
+                          {formatCompact(snapshot.meoUsd)} USD
                         </li>
                         <li>
-                          <strong>Constituent caps</strong> (USD): CNY 42.5 T · XAU 22.1 T · USD 21.5 T · EUR 16.8 T · BTC 2.3 T · JPY
-                          1.7 T · XAG 1.1 T · ETH 0.4336 T
+                          <strong>Constituent caps</strong> (USD):{" "}
+                          {snapshot.weights.map(entry => `${entry.symbol} ${formatCompact(entry.mcUsd)}`).join(" · ")}
                         </li>
                         <li>
-                          <strong>Weights</strong>: CNY 39.2% · XAU 20.4% · USD 19.8% · EUR 15.5% · BTC 2.1% · JPY 1.6% · XAG 1.0% · ETH
-                          0.4%
+                          <strong>Weights</strong>:{" "}
+                          {snapshot.weights.map(entry => `${entry.symbol} ${formatWeightPct(entry.weight)}`).join(" · ")}
                         </li>
                         <li>
-                          <strong>Shares</strong>: Fiat 76.1% · Metals 21.4% · Crypto 2.4%
+                          <strong>Shares</strong>: Fiat {formatWeightPct(fiatShare)} · Metals {formatWeightPct(metalShare)} · Crypto{" "}
+                          {formatWeightPct(cryptoShare)}
                         </li>
                       </ul>
                       <div className="mt-3">
@@ -296,16 +309,7 @@ r_i^{MEΩ} = Δ ln( P_i^{USD} / P_USD^{MEΩ} )`}</pre>
                     <span className="text-right">$ of $1</span>
                   </div>
                   <div className="divide-y divide-border text-sm">
-                    {[
-                      { symbol: "CNY", category: "Fiat M2", weight: 0.392 },
-                      { symbol: "XAU", category: "Precious metal", weight: 0.204 },
-                      { symbol: "USD", category: "Fiat M2", weight: 0.198 },
-                      { symbol: "EUR", category: "Fiat M2", weight: 0.155 },
-                      { symbol: "BTC", category: "Crypto (free-float)", weight: 0.021 },
-                      { symbol: "JPY", category: "Fiat M2", weight: 0.016 },
-                      { symbol: "XAG", category: "Precious metal", weight: 0.01 },
-                      { symbol: "ETH", category: "Crypto (free-float)", weight: 0.004 },
-                    ].map(entry => (
+                    {oneDollarRows.map(entry => (
                       <div key={entry.symbol} className="grid grid-cols-4 py-1.5">
                         <span className="font-mono text-xs text-foreground">{entry.symbol}</span>
                         <span className="text-muted-foreground text-xs">{entry.category}</span>
@@ -416,15 +420,20 @@ dw_j        = w_j[r_j(lambda) - w_k r_k(lambda)]dt`}
             <div className="grid md:grid-cols-3 gap-4 text-sm text-muted-foreground">
               <div className="rounded-lg border border-border bg-muted/20 p-4">
                 <div className="font-semibold text-foreground mb-2">Fiat concentration</div>
-                <p>Fiat sleeves: CNY, USD, EUR, JPY &rarr; ~76.1% combined; CNY alone ~39%.</p>
+                <p>
+                  Fiat sleeves combine to {formatWeightPct(fiatShare)}; largest sleeve {topConstituent.symbol} at{" "}
+                  {formatWeightPct(topConstituent.weight)}.
+                </p>
               </div>
               <div className="rounded-lg border border-border bg-muted/20 p-4">
                 <div className="font-semibold text-foreground mb-2">Metals</div>
-                <p>XAU + XAG &rarr; ~21.4%; staleness and price sanity are the primary risks.</p>
+                <p>
+                  Metals share {formatWeightPct(metalShare)} (XAU/XAG). Staleness and price sanity are the primary risks.
+                </p>
               </div>
               <div className="rounded-lg border border-border bg-muted/20 p-4">
                 <div className="font-semibold text-foreground mb-2">Crypto</div>
-                <p>BTC + ETH &rarr; ~2.4% total; live pricing, but small enough to tolerate noise.</p>
+                <p>Crypto share {formatWeightPct(cryptoShare)}; small enough to tolerate noise.</p>
               </div>
             </div>
           </Card>
@@ -514,4 +523,3 @@ FROM latest;`}
     </div>
   );
 }
-

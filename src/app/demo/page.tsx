@@ -278,9 +278,12 @@ export default function DemoPage() {
             </Badge>
             <h1 className="text-4xl font-bold">MEΩ Backtest Simulator</h1>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              A reproducible simulator measuring portfolio performance in the MEΩ numéraire—returns are currency-neutral
+              A reproducible simulator measuring portfolio performance in the MEIc numeraire?returns are currency-neutral
               and inflation-aware. Tune trading costs and rebalancing cadence; outputs follow the explicit equations
               below.
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Demo returns are synthetic; no external data is fetched. Snapshot date is fixed at 2025-10-08.
             </p>
           </div>
 

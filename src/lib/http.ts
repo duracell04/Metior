@@ -23,6 +23,10 @@ export async function fetchJson<T>(
     retries?: number;
   } = {}
 ): Promise<T> {
+  if (process.env.MEO_FREEZE_DATE || process.env.MEO_OFFLINE === "1") {
+    throw new Error("offline demo: network disabled");
+  }
+
   const key = cacheKey || `${url}?${params ? new URLSearchParams(params as Record<string, string>).toString() : ""}`;
   const now = Date.now();
   const cached = cache.get(key);
