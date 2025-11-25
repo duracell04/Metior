@@ -38,7 +38,7 @@ export const Hero = () => {
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
           <div className="space-y-8">
             <Badge variant="outline" className="border-primary/20 bg-primary/5 text-primary font-mono text-xs">
-              Mêtior · MEΩ
+              Open rules / offline snapshot
             </Badge>
 
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">

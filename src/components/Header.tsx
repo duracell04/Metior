@@ -8,7 +8,7 @@ export const Header = () => {
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between gap-6">
         <Link href="/" className="text-sm font-semibold tracking-tight text-foreground">
-          Metior
+          Mêtior · MEΩ
         </Link>
 
         <nav className="flex items-center gap-4 sm:gap-6 text-sm">
