@@ -14,7 +14,7 @@ export default async function WeightsPage() {
   return (
     <main className="px-6 py-10 space-y-10">
       <header className="space-y-2">
-        <p className="text-sm text-neutral-600 font-mono">Offline snapshot · 2025-10-08</p>
+        <p className="text-sm text-neutral-600 font-mono">Offline snapshot – 2025-10-08</p>
         <h1 className="text-3xl font-semibold">MEO weights and methodology (offline)</h1>
         <p className="text-sm text-neutral-700 max-w-3xl">
           Demo uses a frozen 8 Oct 2025 snapshot; no external data is fetched. Caps are baked into the repo, weights are derived
@@ -22,14 +22,14 @@ export default async function WeightsPage() {
         </p>
         <div className="flex gap-3 text-sm text-neutral-700">
           <span>Σ weights: {sumW.toFixed(9)}</span>
-          <span>Price identity |P - κM|/P: {relErr.toExponential(3)}</span>
+          <span>Price identity |P - κ·M|/P: {relErr.toExponential(3)}</span>
           <span>κ: {KAPPA}</span>
         </div>
         <div className="flex gap-2 text-sm text-neutral-600">
           <Link href="/demo" className="underline">
             Demo controls
           </Link>
-          <span aria-hidden="true">·</span>
+          <span aria-hidden="true">•</span>
           <a className="underline" href="/weights_2025-10-08.csv" download="weights_2025-10-08.csv">
             Download CSV
           </a>
@@ -40,11 +40,12 @@ export default async function WeightsPage() {
         <h2 className="text-xl font-semibold">Performance (MEO-native)</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           <div>World pool M_world: <strong>${fmt(snap.m_world_usd)}</strong></div>
-          <div>MEO price P_USD^{`{MEO}`}: <strong>${fmt(snap.meo_usd)}</strong></div>
+          <div>
+            MEO price <span className="font-mono">P_USD^{"{MEO}"}</span>: <strong>${fmt(snap.meo_usd)}</strong>
+          </div>
         </div>
         <p className="text-sm text-neutral-700 max-w-4xl">
-          By construction, P_USD^{MEO} = κ · M_world with κ = 10^-6. Weights are computed as w_j = MC_j^{USD} / M_world, so
-          Σ w_j ≈ 1 within floating-point tolerance (1e-9). If these identities drift, the page would throw with an audit error.
+          {"By construction, P_USD^{MEO} = κ · M_world with κ = 10^-6. Weights are computed as w_j = MC_j^{USD} / M_world, so Σ w_j ≈ 1 within floating-point tolerance (1e-9). If these identities drift, the page would throw with an audit error."}
         </p>
       </section>
 
@@ -70,7 +71,7 @@ export default async function WeightsPage() {
                     <td className="py-2 pr-4 tabular-nums">{pct(c.w)}</td>
                     <td className="py-2 pr-4 tabular-nums">${fmt(c.mc_usd)}</td>
                     <td className="py-2 pr-4 tabular-nums">
-                      {pct(wFromMc)} <span className="text-neutral-500">Δ={diff.toExponential(2)}</span>
+                      {pct(wFromMc)} <span className="text-neutral-500">δ={diff.toExponential(2)}</span>
                     </td>
                   </tr>
                 );
@@ -79,7 +80,7 @@ export default async function WeightsPage() {
           </table>
         </div>
         <p className="text-xs text-neutral-600">
-          Δ shows |w_derived − w_reported|. In the offline demo we derive weights from caps, so Δ≈0 barring rounding.
+          δ shows |w_derived − w_reported|. In the offline demo we derive weights from caps, so δ→0 barring rounding.
         </p>
       </section>
 
@@ -87,18 +88,20 @@ export default async function WeightsPage() {
         <h3 className="text-lg font-semibold">Methodology (first principles)</h3>
         <div className="space-y-2 text-sm text-neutral-800">
           <p className="leading-6">
-            • Universe C: major fiat M2 (USD/EUR/JPY/CHF), metals (XAU/XAG), and leading crypto (BTC/ETH).
+            Universe C: major fiat M2 (USD/EUR/JPY/CHF), metals (XAU/XAG), and leading crypto (BTC/ETH).
           </p>
           <p className="leading-6">
-            • Caps (USD): MC_j^{USD} = P_j^{USD} · Q_j. Fiat: Q_j = M2_j (local units), P_j^{USD} = FX (USD per unit).
-            Metals: Q = above-ground stock (oz), P = LBMA spot (USD/oz). Crypto: Q = circulating supply, P = coin USD price.
+            Caps (USD): <span className="font-mono">MC_j^{USD} = P_j^{USD} · Q_j</span>. Fiat: <span className="font-mono">Q_j = M2_j</span> (local units),
+            <span className="font-mono"> P_j^{USD} = FX</span> (USD per unit). Metals: <span className="font-mono">Q</span> = above-ground stock (oz),
+            <span className="font-mono"> P</span> = LBMA spot (USD/oz). Crypto: <span className="font-mono">Q</span> = circulating supply,
+            <span className="font-mono"> P</span> = coin USD price.
           </p>
           <p className="leading-6">
-            • World pool: M_world = Σ_j MC_j^{USD}. • Numeraire price: P_USD^{MEO} = κ · M_world, κ = 10^-6.
-            • Weights: w_j = MC_j^{USD} / M_world, Σ w_j = 1.
+            World pool: <span className="font-mono">M_world = Σ_j MC_j^{USD}</span>. Numeraire price: <span className="font-mono">P_USD^{MEO} = κ · M_world</span>, κ = 10^-6.
+            Weights: <span className="font-mono">w_j = MC_j^{USD} / M_world</span>, Σ w_j = 1.
           </p>
           <p className="leading-6 text-neutral-700">
-            Provenance (live mode): FRED (M2: M2SL, MYAGM2EZM…, MYAGM2JPM…, MYAGM2CHM…; FX: DEXUSEU/DEXJPUS/DEXSZUS), LBMA
+            Provenance (live mode): FRED (M2: M2SL, MYAGM2EZM, MYAGM2JPM, MYAGM2CHM; FX: DEXUSEU/DEXJPUS/DEXSZUS), LBMA
             (XAU/XAG spot), USGS (metal stocks), CoinGecko (crypto caps). In this demo those numbers are baked into the snapshot;
             no network calls are made.
           </p>
