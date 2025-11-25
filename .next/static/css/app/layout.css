@@ -1010,6 +1010,9 @@ video {
 .w-\[1px\] {
   width: 1px;
 }
+.w-\[28rem\] {
+  width: 28rem;
+}
 .w-auto {
   width: auto;
 }
@@ -1022,9 +1025,6 @@ video {
 }
 .w-px {
   width: 1px;
-}
-.w-\[28rem\] {
-  width: 28rem;
 }
 .min-w-0 {
   min-width: 0px;
@@ -1059,6 +1059,9 @@ video {
 .max-w-\[--skeleton-width\] {
   max-width: var(--skeleton-width);
 }
+.max-w-\[90vw\] {
+  max-width: 90vw;
+}
 .max-w-lg {
   max-width: 32rem;
 }
@@ -1071,9 +1074,6 @@ video {
 }
 .max-w-xl {
   max-width: 36rem;
-}
-.max-w-\[90vw\] {
-  max-width: 90vw;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -1407,6 +1407,14 @@ video {
 .border-input {
   border-color: hsl(var(--input));
 }
+.border-neutral-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(229 229 229 / var(--tw-border-opacity, 1));
+}
+.border-neutral-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(212 212 212 / var(--tw-border-opacity, 1));
+}
 .border-platinum\/20 {
   border-color: hsl(var(--platinum) / 0.2);
 }
@@ -1424,14 +1432,6 @@ video {
 }
 .border-transparent {
   border-color: transparent;
-}
-.border-neutral-200 {
-  --tw-border-opacity: 1;
-  border-color: rgb(229 229 229 / var(--tw-border-opacity, 1));
-}
-.border-neutral-300 {
-  --tw-border-opacity: 1;
-  border-color: rgb(212 212 212 / var(--tw-border-opacity, 1));
 }
 .border-l-transparent {
   border-left-color: transparent;
@@ -1484,6 +1484,10 @@ video {
 .bg-muted\/50 {
   background-color: hsl(var(--muted) / 0.5);
 }
+.bg-neutral-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(250 250 250 / var(--tw-bg-opacity, 1));
+}
 .bg-platinum\/5 {
   background-color: hsl(var(--platinum) / 0.05);
 }
@@ -1504,10 +1508,6 @@ video {
 }
 .bg-transparent {
   background-color: transparent;
-}
-.bg-neutral-50 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(250 250 250 / var(--tw-bg-opacity, 1));
 }
 .bg-white {
   --tw-bg-opacity: 1;
@@ -1691,6 +1691,9 @@ video {
 .text-\[0\.8rem\] {
   font-size: 0.8rem;
 }
+.text-\[12px\] {
+  font-size: 12px;
+}
 .text-base {
   font-size: 1rem;
   line-height: 1.5rem;
@@ -1711,9 +1714,6 @@ video {
   font-size: 0.75rem;
   line-height: 1rem;
 }
-.text-\[12px\] {
-  font-size: 12px;
-}
 .font-bold {
   font-weight: 700;
 }
@@ -1733,14 +1733,14 @@ video {
   --tw-numeric-spacing: tabular-nums;
   font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
 }
+.leading-5 {
+  line-height: 1.25rem;
+}
 .leading-none {
   line-height: 1;
 }
 .leading-relaxed {
   line-height: 1.625;
-}
-.leading-5 {
-  line-height: 1.25rem;
 }
 .tracking-tight {
   letter-spacing: -0.025em;
@@ -1781,6 +1781,18 @@ video {
 .text-muted-foreground {
   color: hsl(var(--muted-foreground));
 }
+.text-neutral-600 {
+  --tw-text-opacity: 1;
+  color: rgb(82 82 82 / var(--tw-text-opacity, 1));
+}
+.text-neutral-700 {
+  --tw-text-opacity: 1;
+  color: rgb(64 64 64 / var(--tw-text-opacity, 1));
+}
+.text-neutral-800 {
+  --tw-text-opacity: 1;
+  color: rgb(38 38 38 / var(--tw-text-opacity, 1));
+}
 .text-platinum {
   color: hsl(var(--platinum));
 }
@@ -1798,18 +1810,6 @@ video {
 }
 .text-signal {
   color: hsl(var(--signal));
-}
-.text-neutral-600 {
-  --tw-text-opacity: 1;
-  color: rgb(82 82 82 / var(--tw-text-opacity, 1));
-}
-.text-neutral-700 {
-  --tw-text-opacity: 1;
-  color: rgb(64 64 64 / var(--tw-text-opacity, 1));
-}
-.text-neutral-800 {
-  --tw-text-opacity: 1;
-  color: rgb(38 38 38 / var(--tw-text-opacity, 1));
 }
 .underline {
   text-decoration-line: underline;
@@ -2122,6 +2122,11 @@ All colors MUST be HSL.
   background-color: hsl(var(--muted) / 0.5);
 }
 
+.hover\:bg-neutral-50:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(250 250 250 / var(--tw-bg-opacity, 1));
+}
+
 .hover\:bg-primary:hover {
   background-color: hsl(var(--primary));
 }
@@ -2140,11 +2145,6 @@ All colors MUST be HSL.
 
 .hover\:bg-secondary\/80:hover {
   background-color: hsl(var(--secondary) / 0.8);
-}
-
-.hover\:bg-neutral-50:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(250 250 250 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:text-accent-foreground:hover {

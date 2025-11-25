@@ -49,9 +49,7 @@ async function getWeights(): Promise<{
   meoUsd: number;
   isOffline: boolean;
 }> {
-  const isOffline = Boolean(
-    process.env.MEO_FREEZE_DATE || process.env.MEO_OFFLINE === "1" || process.env.MEO_LIVE !== "1"
-  );
+  const isOffline = true; // demo mode uses the static 2025-10-08 snapshot
   try {
     const live = await buildMeoSnapshot();
     return {
