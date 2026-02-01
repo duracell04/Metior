@@ -19,7 +19,7 @@ export const Footer = () => {
                 advice.
               </p>
               <p className="flex flex-wrap items-center gap-2">
-                <strong className="text-foreground">Sources:</strong>
+                <strong className="text-foreground">Sources (raw data):</strong>
                 <a href="https://fred.stlouisfed.org/" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">
                   FRED
                 </a>
@@ -34,6 +34,12 @@ export const Footer = () => {
                 <span aria-hidden="true">•</span>
                 <a href="https://finance.yahoo.com/" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">
                   Yahoo Finance
+                </a>
+              </p>
+              <p className="flex flex-wrap items-center gap-2">
+                <strong className="text-foreground">References (charts & interpretation):</strong>
+                <a href="https://www.longtermtrends.com/" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">
+                  LongtermTrends
                 </a>
               </p>
               <p>Open license: Brand tokens & badges MIT</p>
