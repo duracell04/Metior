@@ -1,7 +1,10 @@
-const path = require("node:path");
-const fs = require("node:fs");
+import * as fs from "node:fs";
+import * as path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const KAPPA = 1e-6;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const SNAPSHOT_PATH = path.join(__dirname, "..", "src", "data", "weights_2025-10-08.json");
 
 function loadSnapshot() {
@@ -40,7 +43,7 @@ function main() {
   console.log("Sum weights:", sumWeights.toFixed(12));
   console.log("Sum caps (USD):", sumCaps.toLocaleString("en-US"));
   console.log("Snapshot m_world_usd:", snapshot.m_world_usd.toLocaleString("en-US"));
-  console.log("Implied MEo price (USD):", Math.round(impliedPrice).toLocaleString("en-US"));
+  console.log("Implied MEO price (USD):", Math.round(impliedPrice).toLocaleString("en-US"));
   console.log("Snapshot meo_usd:", snapshot.meo_usd.toLocaleString("en-US"));
 
   if (issues.length === 0) {

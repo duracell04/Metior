@@ -47,13 +47,27 @@ export async function fetchJson<T>(
   for (let attempt = 0; attempt <= retries; attempt += 1) {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeoutMs);
+    const abortPromise = new Promise<never>((_, reject) => {
+      controller.signal.addEventListener(
+        "abort",
+        () => {
+          const err = new Error("fetch timeout");
+          err.name = "AbortError";
+          reject(err);
+        },
+        { once: true }
+      );
+    });
     const fullUrl = url + search;
     try {
-      const res = await fetch(fullUrl, {
-        signal: controller.signal,
-        headers: { "User-Agent": "Metior/1.0 (+metior.app)" },
-        cache: "no-store",
-      });
+      const res = (await Promise.race([
+        fetch(fullUrl, {
+          signal: controller.signal,
+          headers: { "User-Agent": "Metior/1.0 (+metior.app)" },
+          cache: "no-store",
+        }),
+        abortPromise,
+      ])) as Response;
 
       if (res.ok) {
         const data = (await res.json()) as T;
@@ -76,6 +90,9 @@ export async function fetchJson<T>(
       }
     } catch (err) {
       lastError = err;
+      if (err instanceof Error && err.name === "AbortError") {
+        break;
+      }
       if (attempt === retries) {
         break;
       }

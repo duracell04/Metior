@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import Link from "next/link";
 import { TrendingUp } from "lucide-react";
@@ -15,20 +15,20 @@ import {
 } from "@/components/ui/chart";
 
 const purchasingPowerData = [
-  { year: 1970, meo: 100, usd: 100, eur: 100, chf: 100 },
-  { year: 1980, meo: 98, usd: 61, eur: 74, chf: 85 },
-  { year: 1990, meo: 101, usd: 45, eur: 62, chf: 78 },
-  { year: 2000, meo: 103, usd: 36, eur: 52, chf: 69 },
-  { year: 2010, meo: 101, usd: 26, eur: 44, chf: 58 },
-  { year: 2020, meo: 104, usd: 19, eur: 35, chf: 52 },
-  { year: 2024, meo: 105, usd: 17, eur: 32, chf: 49 },
+  { year: 1970, meo: 100, usd: 100, eur: 100, cny: 100 },
+  { year: 1980, meo: 98, usd: 61, eur: 74, cny: 85 },
+  { year: 1990, meo: 101, usd: 45, eur: 62, cny: 78 },
+  { year: 2000, meo: 103, usd: 36, eur: 52, cny: 69 },
+  { year: 2010, meo: 101, usd: 26, eur: 44, cny: 58 },
+  { year: 2020, meo: 104, usd: 19, eur: 35, cny: 52 },
+  { year: 2024, meo: 105, usd: 17, eur: 32, cny: 49 },
 ];
 
 const chartConfig = {
   meo: { label: "MEΩ", color: "hsl(var(--primary))" },
   usd: { label: "USD", color: "hsl(var(--graph))" },
   eur: { label: "EUR (DEM proxy pre-1999)", color: "hsl(var(--platinum))" },
-  chf: { label: "CHF", color: "hsl(var(--muted-foreground))" },
+  cny: { label: "CNY", color: "hsl(var(--muted-foreground))" },
 };
 
 export const Hero = () => {
@@ -118,7 +118,7 @@ export const Hero = () => {
                   />
                   <Line type="monotone" dataKey="usd" stroke="var(--color-usd)" strokeWidth={2} dot={false} strokeDasharray="6 4" />
                   <Line type="monotone" dataKey="eur" stroke="var(--color-eur)" strokeWidth={2} dot={false} strokeDasharray="4 4" />
-                  <Line type="monotone" dataKey="chf" stroke="var(--color-chf)" strokeWidth={2} dot={false} strokeDasharray="2 4" />
+                  <Line type="monotone" dataKey="cny" stroke="var(--color-cny)" strokeWidth={2} dot={false} strokeDasharray="2 4" />
                   <ChartLegend content={<ChartLegendContent />} />
                 </LineChart>
               </ChartContainer>

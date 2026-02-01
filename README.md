@@ -6,13 +6,13 @@
 
 ## Why this exists (plain English)
 
-Reporting P&L in USD/CHF/EUR **bakes currency luck and inflation** into your “alpha.”
+Reporting P&L in USD/EUR/CNY **bakes currency luck and inflation** into your “alpha.”
 **Mêtior (MEΩ)** is a **capitalization-weighted yard-stick for money itself**—built from **fiat M2**, **gold/silver**, and **leading crypto**.
 Price returns **in MEΩ** and you see **pure economic performance**, not FX/CPI noise.
 
 **Value, at a glance**
 
-* **Currency-neutral truth.** Stop riding USD/CHF cycles—compare apples to apples.
+* **Currency-neutral truth.** Stop riding USD/CNY cycles—compare apples to apples.
 * **Crisis-adaptive.** If a component dies, its weight → 0; MEΩ renormalizes.
 * **Audit-friendly.** Rules are public; data sources are open; outputs are reproducible.
 
@@ -36,7 +36,7 @@ Price returns **in MEΩ** and you see **pure economic performance**, not FX/CPI 
 ## 2) The math (short & exact)
 
 Let ( \mathcal C(t)) be the set of monetary species at time (t):
-**fiats** (USD/EUR/JPY/CHF **M2**), **metals** (**XAU**/**XAG** above-ground stock), **crypto** (**BTC/ETH** free-float).
+**fiats** (USD/EUR/JPY/CNY **M2**), **metals** (**XAU**/**XAG** above-ground stock), **crypto** (**BTC/ETH** free-float).
 
 **Market cap (USD)**
 [
@@ -112,9 +112,14 @@ import pandas as pd
 
 # 1) Example caps (USD). Replace with live pulls from FRED/LBMA/CoinGecko/Yahoo.
 caps = {
-  "USD": 21.5e12, "EUR": 16.8e12, "JPY": 8.6e12, "CHF": 1.25e12,
-  "XAU": 22.1e12, "XAG": 2.6e12,
-  "BTC": 2.26e12, "ETH": 0.30e12
+  "CNY": 42.4928e12,
+  "XAU": 22.1136e12,
+  "USD": 21.4632e12,
+  "EUR": 16.8020e12,
+  "BTC": 2.2764e12,
+  "JPY": 1.7344e12,
+  "XAG": 1.0840e12,
+  "ETH": 0.4336e12
 }
 
 # 2) World pool & MEΩ price

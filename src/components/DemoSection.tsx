@@ -7,6 +7,24 @@ import { BarChart3, Download, PlayCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import snapshotWire from "@/data/weights_2025-10-08.json";
+import { normalizeSnapshot } from "@/lib/meo-data";
+
+const SNAPSHOT = normalizeSnapshot(snapshotWire);
+
+const CATEGORY_BY_SYMBOL: Record<string, string> = {
+  CNY: "Fiat M2",
+  USD: "Fiat M2",
+  EUR: "Fiat M2",
+  JPY: "Fiat M2",
+  XAU: "Precious Metal",
+  XAG: "Precious Metal",
+  BTC: "Crypto",
+  ETH: "Crypto",
+};
+
+const formatPct = (value: number) => (value * 100).toFixed(1);
+const formatUsd = (value: number) => Math.round(value).toString();
 
 export const DemoSection = () => {
   const [isUSDView, setIsUSDView] = useState(true);
@@ -15,14 +33,12 @@ export const DemoSection = () => {
   const handleDownloadWeights = () => {
     const csvData = [
       ["Symbol", "Weight (%)", "Market Cap (USD)", "Category"],
-      ["CNY", "39.2", "42,532,800,000,000", "Fiat M2"],
-      ["XAU", "20.4", "22,137,600,000,000", "Precious Metal"],
-      ["USD", "19.8", "21,484,800,000,000", "Fiat M2"],
-      ["EUR", "15.5", "16,822,000,000,000", "Fiat M2"],
-      ["BTC", "2.1", "2,278,400,000,000", "Crypto"],
-      ["JPY", "1.6", "1,734,400,000,000", "Fiat M2"],
-      ["XAG", "1.0", "1,084,000,000,000", "Precious Metal"],
-      ["ETH", "0.4", "433,600,000,000", "Crypto"],
+      ...SNAPSHOT.weights.map(({ symbol, w, mc_usd }) => [
+        symbol,
+        formatPct(w),
+        formatUsd(mc_usd),
+        CATEGORY_BY_SYMBOL[symbol] ?? "Other",
+      ]),
     ];
 
     const csvContent = csvData.map(row => row.join(",")).join("\n");
@@ -31,7 +47,7 @@ export const DemoSection = () => {
     const url = URL.createObjectURL(blob);
 
     link.setAttribute("href", url);
-    link.setAttribute("download", `meo_weights_${new Date().toISOString().split("T")[0]}.csv`);
+    link.setAttribute("download", `meo_weights_${SNAPSHOT.date}.csv`);
     link.style.visibility = "hidden";
     document.body.appendChild(link);
     link.click();
@@ -39,15 +55,15 @@ export const DemoSection = () => {
 
     toast({
       title: "Download started",
-      description: "MEIc basket weights CSV has been downloaded.",
+      description: "MEΩ basket weights CSV has been downloaded.",
     });
   };
 
   const handleToggleView = () => {
     setIsUSDView(!isUSDView);
     toast({
-      title: `Switched to ${!isUSDView ? "USD" : "MEIc"} denomination`,
-      description: `Now showing returns in ${!isUSDView ? "USD" : "MEIc"} units.`,
+      title: `Switched to ${!isUSDView ? "USD" : "MEΩ"} denomination`,
+      description: `Now showing returns in ${!isUSDView ? "USD" : "MEΩ"} units.`,
     });
   };
 
@@ -63,8 +79,8 @@ export const DemoSection = () => {
     {
       icon: BarChart3,
       title: "Compare denominated returns",
-      description: `See how BTC/GLD/VTI behave in MEIc vs USD. Currently: ${isUSDView ? "USD" : "MEIc"} view`,
-      buttonText: isUSDView ? "Switch to MEIc" : "Switch to USD",
+      description: `See how BTC/GLD/VTI behave in MEΩ vs USD. Currently: ${isUSDView ? "USD" : "MEΩ"} view`,
+      buttonText: isUSDView ? "Switch to MEΩ" : "Switch to USD",
       action: "toggle" as const,
     },
     {
@@ -82,7 +98,7 @@ export const DemoSection = () => {
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold mb-4 text-center">Live Demo</h2>
           <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Interactive tools to explore MEIc performance and composition
+            Interactive tools to explore MEΩ performance and composition
           </p>
 
           <div className="grid md:grid-cols-3 gap-6">

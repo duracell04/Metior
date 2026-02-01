@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { Card } from "@/components/ui/card";
 import { Globe, TrendingUp, FileText } from "lucide-react";
@@ -8,7 +8,7 @@ export const WhyItMatters = () => {
     {
       icon: Globe,
       title: "Currency-neutral truth",
-      description: "Performance no longer 'rides' USD or CHF. MEΩ denominates returns against the whole money universe.",
+      description: "Performance no longer 'rides' USD or CNY. MEΩ denominates returns against the whole money universe.",
     },
     {
       icon: TrendingUp,

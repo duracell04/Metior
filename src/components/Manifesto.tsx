@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { Card } from "@/components/ui/card";
 
@@ -25,7 +25,7 @@ export const Manifesto = () => {
               (BTC/ETH) into one living yard-stick. Price anything in MEΩ to see economic truth without fiat money FX drift.
             </p>
             <blockquote className="border-l-2 border-primary pl-4 text-sm text-foreground">
-              Why care? Reporting in USD/CHF/EUR bakes FX and inflation into your “alpha.” MEΩ strips that out.
+              Why care? Reporting in USD/EUR/CNY bakes FX and inflation into your “alpha.” MEΩ strips that out.
             </blockquote>
           </Card>
 
@@ -85,7 +85,7 @@ r_{i,MEΩ}(t) = Δln( P_i^USD(t) / P_USD^{MEΩ}(t) )`}
               <div className="space-y-2">
                 <p className="font-semibold text-foreground">In-scope (launch)</p>
                 <ul className="list-disc list-inside text-muted-foreground space-y-1">
-                  <li>Components: USD/EUR/JPY/CHF M2, XAU/XAG, BTC/ETH.</li>
+                  <li>Components: USD/EUR/JPY/CNY M2, XAU/XAG, BTC/ETH.</li>
                   <li>Data: FRED, LBMA, CoinGecko, Yahoo FX.</li>
                   <li>Storage: (date, symbol, weight, meo_usd, m_world_usd).</li>
                   <li>Risk in MEΩ: realised/GARCH σ, CVaR; optional 2-state MS-GARCH.</li>
@@ -130,8 +130,8 @@ r_{i,MEΩ}(t) = Δln( P_i^USD(t) / P_USD^{MEΩ}(t) )`}
 import pandas as pd
 
 df_caps = pd.DataFrame({
-  "symbol":["USD","EUR","JPY","CHF","XAU","XAG","BTC","ETH"],
-  "mc_usd":[21.5e12,16.8e12,8.6e12,1.25e12,22.1e12,2.6e12,2.26e12,0.30e12]
+  "symbol":["CNY","XAU","USD","EUR","BTC","JPY","XAG","ETH"],
+  "mc_usd":[42.4928e12,22.1136e12,21.4632e12,16.8020e12,2.2764e12,1.7344e12,1.0840e12,0.4336e12]
 })
 
 kappa = 1e-6
@@ -172,7 +172,7 @@ LIMIT 10;`}
           <Card className="p-6 bg-card border-border space-y-4">
             <h3 className="text-lg font-semibold">10) Validation & acceptance</h3>
             <ul className="list-disc list-inside text-sm text-muted-foreground space-y-2">
-              <li>Stability KPIs: MEΩ vs USD/EUR/CHF volatility; drawdowns (2008/2020/2022); weight entropy.</li>
+              <li>Stability KPIs: MEΩ vs USD/EUR/CNY volatility; drawdowns (2008/2020/2022); weight entropy.</li>
               <li>Trust gates: Σw ≈ 1; P<sup>MEΩ</sup> = κ ΣMC within 1 bp; no NaNs; bit-for-bit rebuild.</li>
               <li>Adoption KPIs: API calls/day; CSV downloads; references to MEΩ / GINα.</li>
             </ul>

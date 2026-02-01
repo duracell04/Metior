@@ -1,4 +1,4 @@
-import { Card } from "@/components/ui/card";
+﻿import { Card } from "@/components/ui/card";
 
 const Equations = () => {
   return (
@@ -19,7 +19,7 @@ const Equations = () => {
             <h3 className="text-lg font-semibold">Offline demo context</h3>
             <p className="text-sm text-muted-foreground">
               This page is frozen to the bundled snapshot dated 2025-10-08. No live calls run in demo mode; all caps and weights below come
-              from the checked-in JSON/CSV (M_world = 108.4T USD, kappa = 1e-6, P_USD^MEIc = 108.4M USD).
+              from the checked-in JSON/CSV (M_world = 108.4T USD, kappa = 1e-6, P_USD^MEΩ = 108.4M USD).
             </p>
             <ul className="grid sm:grid-cols-2 gap-2 text-sm font-mono bg-muted/50 p-3 rounded border border-dashed border-border">
               <li>CNY 42.4928T (39.2%)</li>
@@ -47,7 +47,7 @@ const Equations = () => {
                 <tbody className="text-muted-foreground">
                   <tr className="border-b border-border/50">
                     <td className="py-3 font-mono text-xs">j ∈ C(t)</td>
-                    <td className="py-3">One monetary species (USD/EUR/JPY/CHF M2, XAU, XAG, BTC, ETH, …)</td>
+                    <td className="py-3">One monetary species (USD/EUR/JPY/CNY M2, XAU, XAG, BTC, ETH, …)</td>
                   </tr>
                   <tr className="border-b border-border/50">
                     <td className="py-3 font-mono text-xs">P<sub>j</sub><sup>USD</sup>(t)</td>
